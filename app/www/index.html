@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Welcome to Angular.js!</title>
+		<script src="libs/jquery/dist/jquery.js"></script>
+		<script src="libs/angular/angular.js"></script>
+		<style>
+
+			input.ng-invalid.ng-touched {
+				border: 2px solid red;
+			}
+
+		</style>
+	</head>
+
+	<body>
+
+		<div ng-app="MyApp">
+			<div ng-controller="MyCtrl">
+
+				<form novalidate name="personForm">
+
+					<div>
+						<label>First Name: <input ng-model="person.firstName" name="personFirstName" required>
+							<span ng-show='personForm.personFirstName.$invalid && personForm.personFirstName.$touched'>
+								Please enter a first name!
+							</span>
+						</label>
+					</div>
+					<div>
+						<label>Last Name: <input ng-model="person.lastName" required></label>
+					</div>
+					<div>
+						<label>Age: <input ng-model="person.age" type="number"></label>
+					</div>
+					<div>
+						<label>Email: <input ng-model="person.email" type="email"></label>
+					</div>
+					<div>
+						<label>Are you super hero: <input ng-model="person.isSuperHero" type="checkbox"></label>
+					</div>
+					<button ng-click="send()">Send</button>
+
+				</form>
+
+			</div>
+		</div>
+
+		<script>
+
+			angular.module("MyApp", [])
+				.controller("MyCtrl", function($rootScope, $scope) {
+					$scope.send = function() {
+						console.log($scope.person);
+					}
+				});
+
+		</script>
+
+	</body>
+</html>

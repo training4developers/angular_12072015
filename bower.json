@@ -1,0 +1,23 @@
+{
+  "name": "angular_12072015",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Eric W. Greene <eric@ericwgreene.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/www",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "angular": "~1.4.8"
+  }
+}

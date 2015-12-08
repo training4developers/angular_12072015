@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Welcome to Angular.js!</title>
+		<script src="libs/jquery/dist/jquery.js"></script>
+		<script src="libs/angular/angular.js"></script>
+	</head>
+
+	<body>
+
+		<div ng-app="MyApp">
+			<div ng-controller="SecondCtrl">
+				{{message}}<br>
+				Scope Id: {{$id}}
+			</div>
+			<div ng-controller="SecondCtrl">
+				{{message}}<br>
+				Scope Id: {{$id}}
+			</div>
+			<div ng-controller="FirstCtrl">
+				{{message}}<br>
+				Scope Id: {{$id}}
+			</div>
+		</div>
+
+		<script>
+
+			function firstCtrl(l, s) {
+				s.message = "First";
+				l.log("here is something being logged");
+			}
+
+			firstCtrl.$inject = ["$log", "$scope"];
+
+			angular.module("MyApp", [])
+				.controller("FirstCtrl", firstCtrl)
+				.controller("SecondCtrl", function($scope) {
+					$scope.message = "Second";
+				})
+				.controller("ThirdCtrl", function($scope) {
+					$scope.message = "Third";
+				});
+
+		</script>
+
+	</body>
+</html>

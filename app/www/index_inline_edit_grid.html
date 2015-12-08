@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Welcome to Angular.js!</title>
+		<script src="libs/jquery/dist/jquery.js"></script>
+		<script src="libs/angular/angular.js"></script>
+	</head>
+
+	<body>
+
+		<div ng-app="MyApp">
+			<div ng-controller="MyCtrl">
+				<table>
+					<tr>
+						<th>Code</th><th>Name</th><th>Motto</th><th>Action</th>
+					</tr>
+					<tr ng-repeat="country in countries">
+						<td>
+							<span ng-if="editRowId !== country.id">{{country.code}}</span>
+							<input ng-if="editRowId === country.id" ng-model="editCountry.code">
+						</td>
+						<td>
+							<span ng-if="editRowId !== country.id">{{country.name}}</span>
+							<input ng-if="editRowId === country.id" ng-model="editCountry.name">
+						</td>
+						<td>
+							<span ng-if="editRowId !== country.id">{{country.motto}}</span>
+							<input ng-if="editRowId === country.id" ng-model="editCountry.motto">
+						</td>
+						<td>
+							<button ng-click="editRow(country)" ng-if="editRowId !== country.id">Edit</button>
+							<button ng-click="saveRow(country)" ng-if="editRowId === country.id">Save</button>
+							<button ng-click="cancelRow()" ng-if="editRowId === country.id">Cancel</button>
+						</td>
+					</tr>
+				</table>
+
+			</div>
+		</div>
+
+		<!-- <select
+			ng-model="selectedSortOption"
+			ng-options="sortOption.fieldName as sortOption.caption for sortOption in sortOptions">
+			<option value="">Select Sort Options</option>
+		</select>
+
+		<tr ng-repeat="car in cars | orderBy:selectedSortOption"></tr> -->
+
+		<script>
+
+			angular.module("MyApp", [])
+				.controller("MyCtrl", function($scope) {
+
+					// $scope.sortOptions = [
+					// 	{ fieldName: "year", caption: "Year" },
+					// 	{ fieldName: "make", caption: "Make" },
+					// 	{ fieldName: "model", caption: "Model" },
+					// 	{ fieldName: "color", caption: "Color" },
+					// ];
+
+					$scope.editCountry = {};
+
+					$scope.countries = [
+						{ id: 1, code: "IN", name: "India", motto: "Truth alone trimuphs" },
+						{ id: 2, code: "US", name: "United States of America", motto: "In God we trust" },
+						{ id: 3, code: "TW", name: "Republic of China", motto: "The Senate and people of Taiwan" },
+						{ id: 4, code: "PN", name: "Panama", motto: "For the benefit of the world." }
+					];
+
+					$scope.editRow = function(country) {
+						$scope.editRowId = country.id;
+						angular.extend($scope.editCountry, country);
+					};
+
+					$scope.saveRow = function(country) {
+						$scope.editRowId = undefined;
+						angular.extend(country, $scope.editCountry);
+					};
+
+					$scope.cancelRow = function(country) {
+						$scope.editRowId = undefined;
+					};
+				});
+
+		</script>
+
+	</body>
+</html>

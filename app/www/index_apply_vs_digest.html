@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Welcome to Angular.js!</title>
+		<script src="libs/jquery/dist/jquery.js"></script>
+		<script src="libs/angular/angular.js"></script>
+	</head>
+
+	<body>
+
+		<div ng-app="MyApp">
+			{{rootMessage}}
+			<div ng-controller="MyCtrl">
+				{{childMessage}}
+			</div>
+		</div>
+
+		<script>
+
+			angular.module("MyApp", [])
+				.controller("MyCtrl", function($rootScope, $scope) {
+
+					$rootScope.rootMessage = "Choice Hotels: Bringing people together...";
+					$scope.childMessage = "Choice Hotels: Should I stay or should I go...";
+
+					setTimeout(function() {
+						console.log("timeout expired...");
+						$rootScope.rootMessage = "Choice Hotels: By the power of gray skull...";
+						$scope.childMessage = "Choice Hotels: Perfect girl...";
+						$scope.$apply();
+						//$scope.$digest();
+					}, 2000);
+
+
+				});
+
+		</script>
+
+	</body>
+</html>

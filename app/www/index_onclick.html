@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Welcome to Angular.js!</title>
+		<script src="libs/jquery/dist/jquery.js"></script>
+		<script src="libs/angular/angular.js"></script>
+	</head>
+
+	<body>
+
+		<div ng-app="MyApp">
+			<div ng-controller="MyCtrl">
+				{{message}}
+				<button onclick="clickMe()">Click Me!</button>
+			</div>
+		</div>
+
+		<script>
+
+			angular.module("MyApp", [])
+				.controller("MyCtrl", function($scope, $timeout) {
+					$scope.message = "Comfort Suites are amazing!";
+
+					window.clickMe = function() {
+						$scope.$apply(function() {
+							$scope.message = "Quality Inns are high quality!";
+						});
+						//$scope.$digest();
+						console.log("I was clicked...");
+					};
+
+					setTimeout(function() {
+						$scope.message = "Cambria Suites are amazing!";
+						$scope.$digest();
+						console.log("timeout expired!");
+					}, 2000);
+				});
+
+		</script>
+
+	</body>
+</html>

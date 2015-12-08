@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Welcome to Angular.js!</title>
+		<script src="libs/jquery/dist/jquery.js"></script>
+		<script src="libs/angular/angular.js"></script>
+		<style>
+
+			div {
+				padding:5px;
+				border:2px solid red;
+				margin: 5px;
+			}
+
+		</style>
+	</head>
+
+	<body>
+
+		<div ng-app="MyApp">
+			Scope Id: {{$id}}
+			<br>Message: {{message}}
+			<div ng-controller="MyCtrl">
+				Scope Id: {{$id}}
+				<br>Message: {{message}}
+				<div ng-controller="MyCtrl">
+					Scope Id: {{$id}}
+					<br>Message: {{message}}
+				</div>
+				<div ng-controller="MyCtrl">
+					Scope Id: {{$id}}
+					<br>Message: {{message}}
+				</div>
+			</div>
+			<div ng-controller="MyCtrl">
+				Scope Id: {{$id}}
+				<br>Message: {{message}}
+				<div ng-controller="MyCtrl">
+					Scope Id: {{$id}}
+					<br>Message: {{message}}
+				</div>
+			</div>
+			<div ng-controller="MyCtrl">
+				Scope Id: {{$id}}
+				<br>Message: {{message}}
+			</div>
+		</div>
+
+		<script>
+
+			angular.module("MyApp", [])
+				.controller("MyCtrl", function($scope) {
+					$scope.message = "Ascend Collection: " + $scope.$id;
+				})
+				.run(function($rootScope) {
+					$rootScope.message = "Comfort Suites are the best!";
+				});
+
+		</script>
+
+	</body>
+</html>

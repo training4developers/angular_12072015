@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Welcome to Angular.js!</title>
+		<script src="libs/jquery/dist/jquery.js"></script>
+		<script src="libs/angular/angular.js"></script>
+		<style>
+
+			label {
+				display:block;
+			}
+
+			input:invalid {
+				border: 1px solid red;
+			}
+
+			input:invalid + span {
+				display:inline;
+				font-family: sans-serif;
+				color:red;
+			}
+
+			input:valid + span {
+				display:none;
+			}
+
+
+		</style>
+	</head>
+
+	<body>
+
+		<div ng-app="MyApp">
+			<div ng-controller="MyCtrl">
+
+				<label>First Name: <input type="text" name="first-name" required>
+					<span>Please enter a first name!</span>
+				</label>
+				<label>Last Name: <input type="text" name="last-name" required>
+					<span>Please enter a last name!</span>
+				</label>
+
+
+
+
+				<select ng-model="selectedCountry"
+					ng-options="country.code as country.name for country in countries">
+					<option value="">Select Country...</option>
+				</select>
+
+				<div ng-switch on="selectedCountry">
+					<div ng-switch-when="IN">Driving in India is amazing!</div>
+					<div ng-switch-when="TW">Lower Cost Goods!</div>
+					<div ng-switch-when="PN">Great People!</div>
+					<div ng-switch-when="US">Diverse Climates!</div>
+					<div ng-switch-default>Select a country to be inspired by their greatness!</div>
+				</div>
+
+			</div>
+		</div>
+
+		<script>
+
+			angular.module("MyApp", [])
+				.controller("MyCtrl", function($scope) {
+
+					$scope.countries = [
+						{ code: "IN", name: "India" },
+						{ code: "US", name: "United States of America" },
+						{ code: "TW", name: "Republic of China" },
+						{ code: "PN", name: "Panama" }
+					];
+
+
+				});
+
+		</script>
+
+	</body>
+</html>

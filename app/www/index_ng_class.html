@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Welcome to Angular.js!</title>
+		<script src="libs/jquery/dist/jquery.js"></script>
+		<script src="libs/angular/angular.js"></script>
+		<style>
+
+			.alternate-row {
+				font-size:48px;
+				color:red;
+			}
+
+		</style>
+	</head>
+
+	<body>
+
+		<div ng-app="MyApp">
+			<div ng-controller="MyCtrl">
+
+				<select ng-model="selectedCountry"
+					ng-options="country.code as country.name for country in countries">
+					<option value="">Select Country...</option>
+				</select>
+
+				<div ng-switch on="selectedCountry">
+					<div ng-switch-when="IN">Driving in India is amazing!</div>
+					<div ng-switch-when="TW">Lower Cost Goods!</div>
+					<div ng-switch-when="PN">Great People!</div>
+					<div ng-switch-when="US">Diverse Climates!</div>
+					<div ng-switch-default>Select a country to be inspired by their greatness!</div>
+				</div>
+
+				<ul>
+					<li ng-repeat="country in countries" ng-class="{'alternate-row':$even}">{{country.name}}</li>
+				</ul>
+
+			</div>
+		</div>
+
+		<script>
+
+			angular.module("MyApp", [])
+				.controller("MyCtrl", function($scope) {
+
+					$scope.countries = [
+						{ code: "IN", name: "India" },
+						{ code: "US", name: "United States of America" },
+						{ code: "TW", name: "Republic of China" },
+						{ code: "PN", name: "Panama" }
+					];
+
+
+				});
+
+		</script>
+
+	</body>
+</html>

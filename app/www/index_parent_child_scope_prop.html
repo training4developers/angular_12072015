@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Welcome to Angular.js!</title>
+		<script src="libs/jquery/dist/jquery.js"></script>
+		<script src="libs/angular/angular.js"></script>
+	</head>
+
+	<body>
+
+		<div ng-app="MyApp">
+			Parent Message: {{o.message}}<br>
+			Parent Message: <input ng-model="o.message"><br>
+			<div ng-controller="MyCtrl">
+				Child Message: {{o.message}}<br>
+				Child Message: <input ng-model="o.message"><br>
+			</div>
+		</div>
+
+		<script>
+
+			angular.module("MyApp", [])
+				.controller("MyCtrl", function($rootScope, $scope) {
+
+					$rootScope.o = {};
+
+				});
+
+		</script>
+
+	</body>
+</html>

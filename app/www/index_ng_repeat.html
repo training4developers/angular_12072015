@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Welcome to Angular.js!</title>
+		<script src="libs/jquery/dist/jquery.js"></script>
+		<script src="libs/angular/angular.js"></script>
+	</head>
+
+	<body>
+
+		<div ng-app="MyApp">
+			<div ng-controller="MyCtrl">
+				Color Filter: <input ng-model="colorFilter"><br>
+				New Color: <input ng-model="newColor"><button ng-click="addColor()">Add Color</button>
+
+				<ul>
+					<li ng-repeat="color in colors | filter:colorFilter | orderBy:'toString()' track by $index">{{$index}} {{color}} {{$odd}}</li>
+				</ul>
+				<ul>
+					<li ng-repeat="country in countries | filter:{'pop':colorFilter}">{{country.name}} <button ng-click="deleteCountry(country)">Delete</button></li>
+				</ul>
+
+				<div>
+					<div><label>Country Name <input ng-model="newCountry.name"></label></div>
+					<div><label>Country Population <input ng-model="newCountry.population"></label></div>
+					<div><label>Country Government <input ng-model="newCountry.government"></label></div>
+					<button ng-click="addCountry()">Add Country</button>
+				</div>
+
+			</div>
+		</div>
+
+		<script>
+
+			angular.module("MyApp", [])
+				.controller("MyCtrl", function($scope) {
+
+					$scope.addColor = function() {
+						$scope.colors.push($scope.newColor);
+					};
+
+					$scope.addCountry = function() {
+						$scope.countries.push($scope.newCountry);
+					}
+
+					$scope.deleteCountry = function(country) {
+						console.log(country);
+					}
+
+					$scope.colors = ["green","white","saffron","red","blue","purple","black","fucshia","brown"];
+
+					$scope.countries = [
+						{ name: "India", population: 1200, government: "democracy" },
+						{ name: "USA", population: 350, government: "democracy" },
+						{ name: "North Korea", population: 60, government: "dictatorship" }
+					];
+
+
+
+				});
+
+		</script>
+
+	</body>
+</html>
