@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="MyCtrl">
+
+			<div my-dir>
+				<h1>Original Content</h1>
+				<span>{{message}}</span>
+			</div>
+
+		</div>
+	</div>
+
+	<script>
+
+		angular.module("MyApp", [])
+			.directive("myDir", function() {
+
+				// directive definition object
+				return {
+					transclude: true,
+					template: "<div>{{message}}</div>",
+					link: function(scope, element, attrs, ctrl, transclude) {
+
+						function appendMe(clone) {
+							element.append(clone);
+						}
+
+						transclude(appendMe);
+						transclude(appendMe);
+						transclude(appendMe);
+						transclude(appendMe);
+
+
+
+						scope.message = "Hi Class!";
+						scope.colors = ["red","white","blue","periwinkle"];
+					}
+				};
+
+			})
+			.controller("MyCtrl", function($scope, $q, $timeout) {
+			})
+			.run(function($templateCache) {
+
+				$templateCache.put("tpl/test.html", "<div>{{message}}</div><ul><li ng-repeat='color in colors'>{{color}}</li></ul>");
+
+			});
+	</script>
+
+</body>
+
+</html>

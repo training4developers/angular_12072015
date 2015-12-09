@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="MyCtrl">
+
+			<div my-dir>
+				<h1>{{message}}</h1>
+			</div>
+
+		</div>
+	</div>
+
+	<script>
+
+		angular.module("MyApp", [])
+			.directive("myDir", function($compile) {
+
+				// directive definition object
+				return {
+					compile: function(tElement, tAttrs) {
+
+						var tpl = tElement.html();
+						tElement.empty();
+
+						return function(scope, element, attrs) {
+
+							function transclude(cloneFn) {
+								var linkingFn = $compile(tpl);
+								var domElements = linkingFn(scope);
+								cloneFn(domElements);
+							}
+
+							transclude(function(clone) {
+								element.append(clone);
+							});
+
+						};
+					}
+				};
+
+			})
+			.controller("MyCtrl", function($scope, $q, $timeout) {
+			});
+
+	</script>
+
+</body>
+
+</html>

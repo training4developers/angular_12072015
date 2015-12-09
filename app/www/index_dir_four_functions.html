@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="MyCtrl">
+
+			<div id="my-fav-div" my-dir></div>
+
+
+		</div>
+	</div>
+
+	<script>
+
+		angular.module("MyApp", [])
+			.directive("myDir", function() {
+
+				// directive definition object
+				return {
+					compile: function(tElement, tAttrs) {
+
+						tElement.append("{{message}}");
+
+						return {
+							// pre-link
+							pre: function(scope, element, attrs) {
+							},
+							// post-link
+							post: function(scope, element, attrs) {
+								element.append("{{message}}");
+								scope.message = "Choice Hotels Rocks!";
+							}
+						};
+					}
+				};
+
+			})
+			// // return a ddo with compile
+			// .directive("myDir", function() {
+			//
+			// 	// directive definition object
+			// 	return {
+			// 		compile: function(tElement, tAttrs) {
+			//
+			// 			tElement.append("{{message}}");
+			//
+			// 			// post-link
+			// 			return function(scope, element, attrs) {
+			//
+			// 				element.append("{{message}}");
+			// 				scope.message = "Choice Hotels Rocks!";
+			// 			}
+			// 		}
+			// 	};
+			//
+			// })
+			// // return ddo with only post-link function
+			// .directive("myDir", function() {
+			//
+			// 	// directive definition object
+			// 	return {
+			// 		// post-link
+			// 		link: function(scope, element, attrs) {
+			// 			console.dir(scope);
+			// 			console.dir(element);
+			// 			console.dir(attrs);
+			// 			element.html("Hi Class!");
+			// 		}
+			// 	};
+			//
+			// })
+			// // return only a post-link function
+			// .directive("myDir", function() {
+			//
+			// 	// post-link
+			// 	return function(scope, element, attrs) {
+			// 		console.dir(scope);
+			// 		console.dir(element);
+			// 		console.dir(attrs);
+			// 		element.html("Hi Class!");
+			// 	};
+			//
+			// })
+			.controller("MyCtrl", function($scope, $q, $timeout) {
+			});
+	</script>
+
+</body>
+
+</html>

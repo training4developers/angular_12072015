@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="MyCtrl">
+
+			<div my-dir></div>
+
+		</div>
+	</div>
+
+	<script>
+
+		angular.module("MyApp", [])
+			.directive("myDir", function() {
+
+				// directive definition object
+				return {
+					// template: "<div>{{message}}</div>" +
+					// 	"<ul><li ng-repeat='color in colors'>{{color}}</li></ul>",
+					templateUrl: "tpl/test.html",
+					link: function(scope, element) {
+						scope.message = "Hi Class!";
+						scope.colors = ["red","white","blue","periwinkle"];
+					}
+				};
+
+			})
+			.controller("MyCtrl", function($scope, $q, $timeout) {
+			})
+			.run(function($templateCache) {
+
+				$templateCache.put("tpl/test.html", "<div>{{message}}</div><ul><li ng-repeat='color in colors'>{{color}}</li></ul>");
+
+			});
+	</script>
+
+</body>
+
+</html>

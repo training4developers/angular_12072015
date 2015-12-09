@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="MyCtrl">
+			Controller Scope: {{$id}}<br>Message: {{message}} <input ng-model='message'>
+			<div my-dir two-way="message" one-way="{{message | uppercase}}" click-me="doSomething()">
+
+			</div>
+
+		</div>
+	</div>
+
+	<script>
+
+		angular.module("MyApp", [])
+			.directive("myDir", function() {
+
+				return {
+					scope: {
+						msg: "=twoWay",
+						oneWay: "@",
+						clickMe: "&"
+					},
+					template: "Directive Scope: {{$id}}<br>Message: {{msg}} <input ng-model='msg'> {{oneWay}} <button ng-click='clickMe()'>Click Me!</button>",
+					link: function(scope, element, attrs) {
+
+						//scope["msg"] = scope.$parent[attrs[this.scope.msg]];
+
+
+					}
+				}
+
+			})
+			.controller("MyCtrl", function($scope) {
+				$scope.message = "Choice Hotels loves Angular.js!";
+				$scope.doSomething = function() {
+					console.log("did something");
+				};
+			});
+
+	</script>
+
+</body>
+
+</html>

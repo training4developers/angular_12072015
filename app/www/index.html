@@ -12,67 +12,48 @@
 
 	<div ng-app="MyApp">
 		<div ng-controller="MyCtrl">
+
+			<input type="checkbox" ng-model="showMe"> Show Me!
+
+			<div ng-if="showMe">
+				<button ch-click="doSomething()">Click Me!</button>
+			</div>
 		</div>
 	</div>
 
 	<script>
 
 		angular.module("MyApp", [])
-			.controller("MyCtrl", function($scope, $q, $timeout) {
+			.directive("chClick", function() {
 
-				var
-					d1 = $q.defer(),
-					d2 = $q.defer(),
-					d3 = $q.defer(),
-					d4 = $q.defer();
+				return {
+					scope: {
+						fnClick: "&chClick"
+					},
+					link: function(scope, element) {
 
-				$q.every = function(promises) {
+						function clickFn() {
+							scope.$apply(function() {
+								scope.fnClick();
+							});
+						}
 
-					var allPromises = [];
+						element.on("click", clickFn);
 
-					promises.forEach(function(promise) {
+						scope.$on("$destroy", function() {
+							element.off("click", clickFn);
+						});
 
-						var newDeferred = $q.defer();
+					}
+				}
 
-						promise.then(function(results) {
-							newDeferred.resolve({ results: results, resolved: true });
-						}).catch(function(results) {
-							newDeferred.resolve({ results: results, resolved: false });
-						})
-
-						allPromises.push(newDeferred.promise);
-					});
-
-					return $q.all(allPromises);
+			})
+			.controller("MyCtrl", function($scope) {
+				$scope.doSomething = function() {
+					console.log("I was clicked!");
 				};
-
-				$q.every([d1.promise,d2.promise,d3.promise,d4.promise])
-					.then(function() {
-						console.log("all done");
-						console.log(arguments);
-					})
-
-
-				$timeout(function() {
-					console.log("d1 resolved");
-					d1.resolve("d1 resolved");
-				}, 2000);
-
-				$timeout(function() {
-					console.log("d2 resolved");
-					d2.resolve("d2 resolved");
-				}, 4000);
-
-				$timeout(function() {
-					console.log("d3 reject");
-					d3.reject("d3 reject");
-				}, 6000);
-
-				$timeout(function() {
-					console.log("d4 resolved");
-					d4.resolve("d4 resolved");
-				}, 8000);
 			});
+
 	</script>
 
 </body>

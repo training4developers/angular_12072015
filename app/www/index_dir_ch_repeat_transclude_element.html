@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="MyCtrl">
+			<ul>
+				<li>First Item</li>
+				<li ch-repeat="color in colors | orderBy:'toString()'">{{color}}</li>
+				<li>Last Item</li>
+			</ul>
+			<ul>
+				<li>First Item</li>
+				<li ch-repeat="car in cars | orderBy:'name'">{{car.name}}</li>
+				<li>Last Item</li>
+			</ul>
+		</div>
+	</div>
+
+	<script>
+
+		angular.module("MyApp", [])
+			.directive("chRepeat", function() {
+
+				return {
+					transclude: 'element',
+					compile: function compile(tElement, tAttrs) {
+
+						var
+							tokens = tAttrs.chRepeat.split(" "),
+							itemName = tokens[0],
+							listName = tokens[2],
+							listExp = tokens.splice(2).join(" ");
+
+
+						return function postLink(scope, element, attrs, ctrl, transclude) {
+
+							var listElements = [], lastElement;
+
+							scope.$watchCollection(listName, function(newList, oldList, scope) {
+
+								listElements.forEach(function(itemElement) {
+									angular.element(itemElement).scope().$destroy();
+									itemElement.remove();
+								});
+								listElements = [];
+								lastElement = element;
+
+								scope.$eval(listExp).forEach(function(item) {
+									var childScope = scope.$new();
+									childScope[itemName] = item;
+									transclude(childScope, function(clone) {
+										lastElement.after(clone);
+										listElements.push(lastElement = clone);
+									});
+								});
+							});
+
+						};
+					}
+				};
+			})
+			.controller("MyCtrl", function($scope, $q, $timeout) {
+				$scope.colors = ["pink","fuschia", "periwinkle", "macaroni", "tomato"];
+
+				$scope.cars = [ {name: "Ford"},{name:"Tesla"},{name:"BMW"}];
+
+
+				$timeout(function() {
+				 	console.log("timeout expired");
+				 	$scope.colors.push("aqua");
+				}, 2000);
+			});
+
+	</script>
+
+</body>
+
+</html>

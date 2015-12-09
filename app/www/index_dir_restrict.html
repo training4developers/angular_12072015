@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="MyCtrl">
+
+			<div class="my-dir"></div>
+
+
+		</div>
+	</div>
+
+	<script>
+
+		angular.module("MyApp", [])
+			.directive("myDir", function() {
+
+				// directive definition object
+				return {
+					restrict: "AECM",
+					link: function(scope,element) {
+						console.log("Hello!");
+						element.html("Hello!");
+					}
+				};
+
+			})
+			.controller("MyCtrl", function($scope, $q, $timeout) {
+			});
+	</script>
+
+</body>
+
+</html>

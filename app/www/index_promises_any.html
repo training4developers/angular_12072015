@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="MyCtrl">
+		</div>
+	</div>
+
+	<script>
+
+		angular.module("MyApp", [])
+			.controller("MyCtrl", function($scope, $q, $timeout) {
+
+				var
+					d1 = $q.defer(),
+					d2 = $q.defer(),
+					d3 = $q.defer(),
+					d4 = $q.defer();
+
+				$q.every = function(promises) {
+
+					var allPromises = [];
+
+					promises.forEach(function(promise) {
+
+						var newDeferred = $q.defer();
+
+						promise.then(function(results) {
+							newDeferred.resolve({ results: results, resolved: true });
+						}).catch(function(results) {
+							newDeferred.resolve({ results: results, resolved: false });
+						})
+
+						allPromises.push(newDeferred.promise);
+					});
+
+					return $q.all(allPromises);
+				};
+
+				$q.every([d1.promise,d2.promise,d3.promise,d4.promise])
+					.then(function() {
+						console.log("all done");
+						console.log(arguments);
+					})
+
+
+				$timeout(function() {
+					console.log("d1 resolved");
+					d1.resolve("d1 resolved");
+				}, 2000);
+
+				$timeout(function() {
+					console.log("d2 resolved");
+					d2.resolve("d2 resolved");
+				}, 4000);
+
+				$timeout(function() {
+					console.log("d3 reject");
+					d3.reject("d3 reject");
+				}, 6000);
+
+				$timeout(function() {
+					console.log("d4 resolved");
+					d4.resolve("d4 resolved");
+				}, 8000);
+			});
+	</script>
+
+</body>
+
+</html>
