@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="MyCtrl">
+
+			{{message | chUpperCase}}<br>
+			{{message2 | chLowerCase}}<br>
+			{{message3 | chAppend:'!!!!!!' }}
+
+
+		</div>
+	</div>
+
+	<script>
+		angular.module("MyApp", [])
+			.filter("chUpperCase", function() {
+
+				return function(value) {
+					return String(value).toUpperCase();
+				};
+
+			})
+			.filter("chLowerCase", function() {
+
+				return function(value) {
+					return String(value).toLowerCase();
+				};
+
+			})
+			.filter("chAppend", function() {
+
+				return function(value, strToAppend) {
+					return String(value) + String(strToAppend);
+				}
+
+			})
+			.controller("MyCtrl", function($scope, $timeout) {
+
+				$scope.message = "Also Rob loves the Safety Dance!";
+				$scope.message2 = "Also Rob says everyone loves Journey after 6 beers...";
+				$scope.message3 = $scope.message2;
+
+			});
+	</script>
+
+</body>
+
+</html>

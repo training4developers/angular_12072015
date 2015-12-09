@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="MyCtrl">
+		</div>
+	</div>
+
+	<script>
+
+		angular.module("MyApp", [])
+			.controller("MyCtrl", function($scope, $q, $timeout) {
+
+				var
+					youngLady = $q.defer(),
+					youngMan = youngLady.promise;
+
+				youngMan.then(function(msg) {
+					console.log(msg);
+					console.log("she said yes!, we are getting married!");
+				}).catch(function(msg) {
+					console.log(msg);
+					console.log("she said no!, time to sign up for eHarmony!");
+				});
+
+				$timeout(function() {
+					console.log("she decides no...");
+					youngLady.reject("she fell in love with his friend...");
+				}, 3000);
+
+				console.log("young man is waiting...");
+
+
+
+
+			});
+	</script>
+
+</body>
+
+</html>

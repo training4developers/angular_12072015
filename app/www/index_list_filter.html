@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="MyCtrl">
+			<ul>
+				<li ng-repeat="dance in dances | chOneDances:5 | orderBy:'name'">{{dance.name}}</li>
+			</ul>
+		</div>
+	</div>
+
+	<script>
+		angular.module("MyApp", [])
+			.filter("chGroupDances", function() {
+
+				return function(danceList) {
+
+					return danceList.filter(function(dance) {
+						return dance.kind === "group";
+					});
+
+				};
+
+			})
+			.filter("chOneDances", function() {
+
+				return function(danceList, minLength) {
+
+					return danceList.filter(function(dance) {
+						return dance.kind === "one";
+					});
+
+					// option 1
+					danceList.filter(function(dance) {
+						return dance.length >= minLength;
+					})
+
+					// option 2
+					var newDanceList = [];
+					danceList.forEach(function(dance) {
+						if (dance.length >= minLength) {
+							newDanceList.push(dance);
+						}
+					});
+
+				};
+
+			})
+			.controller("MyCtrl", function($scope, $timeout) {
+
+				$scope.dances = [
+					{ name: "safety dance", kind: "group" },
+					{ name: "nae nae dance", kind: "group" },
+					{ name: "foxtrot dance", kind: "two" },
+					{ name: "quan dance", kind: "one" },
+					{ name: "salsa dance", kind: "two" },
+					{ name: "chicken dance", kind: "one" }
+				];
+
+			});
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+	<style>
+		input.ng-invalid.ng-touched {
+			border: 2px solid red;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="MyCtrl">
+
+			<form novalidate name="personForm" ng-submit="send()">
+
+				<div>
+					<label>First Name:
+						<input ng-model="person.firstName" name="personFirstName" required>
+						<span ng-show='personForm.personFirstName.$invalid && personForm.personFirstName.$touched'>
+							Please enter a first name!
+						</span>
+					</label>
+				</div>
+				<div>
+					<label>Last Name:
+						<input ng-model="person.lastName" required>
+					</label>
+				</div>
+				<div>
+					<label>Age:
+						<input ng-model="person.age" type="number">
+					</label>
+				</div>
+				<div>
+					<label>Email:
+						<input ng-model="person.email" type="email">
+					</label>
+				</div>
+				<div>
+					<label>Are you super hero:
+						<input ng-model="person.isSuperHero" type="checkbox">
+					</label>
+				</div>
+				<div>
+					<fieldset>
+						<legend>Choice Hotel Brand</legend>
+						<div>
+							<label>Rodeway Inn
+								<input ng-model="person.hotelBrand" name="personHotelBrand" value="Rodeway Inn" type="radio">
+							</label>
+						</div>
+						<div>
+							<label>Econo Lodge
+								<input ng-model="person.hotelBrand" name="personHotelBrand" value="Econo Lodge" type="radio">
+							</label>
+						</div>
+						<div>
+							<label>Quality Inn
+								<input ng-model="person.hotelBrand" name="personHotelBrand" value="Quality Inn" type="radio">
+							</label>
+						</div>
+						<div>
+							<label>Sleep Inn
+								<input ng-model="person.hotelBrand" name="personHotelBrand" value="Sleep Inn" type="radio">
+							</label>
+						</div>
+					</fieldset>
+				</div>
+				<div>
+					<label>Loyalty Status:
+						<select ng-model="person.loyaltyStatus" name="personLoyaltyStatus"
+							ng-options="loyaltyStatus.code as loyaltyStatus.caption
+								group by loyaltyStatus.category for loyaltyStatus in loyaltyStatuses">
+							<option value="">Select One...</option>
+						</select>
+					</label>
+				</div>
+				<div>
+					<label>Comments:
+						<textarea ng-model="person.comments" rows="5" cols="40" name="personComments"></textarea>
+					</label>
+				</div>
+
+				<button qng-click="send()">Send</button>
+
+			</form>
+
+		</div>
+	</div>
+
+	<script>
+		angular.module("MyApp", [])
+			.controller("MyCtrl", function($rootScope, $scope) {
+
+				// $scope.person = {
+				// 	firstName: "Bob",
+				// 	lastName: "Barker"
+				// }
+
+				$scope.loyaltyStatuses = [
+					{ code: "silver", caption: "Silver", category: "Special" },
+					{ code: "gold", caption: "Gold", category: "Special" },
+					{ code: "platinum", caption: "Platinum", category: "Elite" },
+					{ code: "diamond", caption: "Diamond", category: "Elite" },
+					{ code: "triple-diamond", caption: "Triple Diamond", category: "Hydro-Platynum Super Duper Black" },
+					{ code: "gold-silver-platinum-diamond-hydro", caption: "Gold Silver Platinum Diamond Hydro", category: "Hydro-Platynum Super Duper Black" }
+				];
+
+				$scope.send = function() {
+
+					console.dir($scope);
+
+					if ($scope.personForm.$invalid) {
+						alert("Person Form is Invalid");
+						return;
+					}
+
+					console.log($scope.person);
+				}
+			});
+	</script>
+
+</body>
+
+</html>

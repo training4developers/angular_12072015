@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="MyCtrl">
+		</div>
+	</div>
+
+	<script>
+
+		angular.module("MyApp", [])
+			.controller("MyCtrl", function($scope, $q, $timeout) {
+
+				var
+					youngLady = $q.defer(),
+					youngMan = youngLady.promise;
+
+				youngMan.then(function(tobyTyler) {
+					console.log(tobyTyler);
+					console.log("she said yes!, we are getting married!");
+
+					// var tellTheFriends = $q.defer();
+					//
+					// $timeout(function() {
+					// 	tellTheFriends.resolve("told all 3 of our friends");
+					// }, 3000);
+					//
+					// return tellTheFriends.promise;
+
+					//return;
+
+					//throw Error("we have a runaway bride...");
+					return $q.reject("she went to Mars..");
+
+				}).then(function(results) {
+
+					console.log(results);
+
+					var findALocation = $q.defer();
+
+					$timeout(function() {
+						findALocation.resolve("found a nice place");
+					}, 3000);
+
+					return findALocation.promise;
+
+
+				}).then(function(results) {
+					console.log(results);
+
+					var orderVeggieTrays = $q.defer();
+
+					$timeout(function() {
+						orderVeggieTrays.resolve("found lots of bell peppers...");
+					}, 3000);
+
+					return orderVeggieTrays.promise;
+
+				}).then(function(results) {
+
+					console.log(results);
+
+				}).catch(function(results) {
+
+					console.log("catch: " + results);
+
+				});
+
+				$timeout(function() {
+					console.log("she decides yes...");
+					youngLady.resolve("she is madly in love, and wants to be with him forever...");
+				}, 3000);
+
+				console.log("young man is waiting...");
+
+
+
+
+			});
+	</script>
+
+</body>
+
+</html>

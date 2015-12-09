@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="MyCtrl">
+
+
+			Message: <input name="message" ng-model="message" ng-model-options="{ updateOn: 'blur'}"><br>
+			Message: {{message}}
+
+			<ul>
+				<li ng-repeat="veggie in veggies">{{veggie}}</li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+
+	<script>
+		angular.module("MyApp", [])
+			.config(function($rootScopeProvider) {
+
+				//$rootScopeProvider.digestTtl(5);
+
+			})
+			.controller("MyCtrl", function($scope, $timeout) {
+
+				$scope.veggies = [
+					"carrot", "brussel sprouts", "kale", "spinach",
+					"asparagus", "broccoli", "potato", "artichokes"
+				];
+
+				$timeout(function() {
+					console.log("veggie added");
+					$scope.veggies.push("bacon");
+				}, 2000)
+
+				$scope.$watchCollection("veggies", function(newList, oldList) {
+					console.log("veggies watch");
+					console.log(newList);
+				});
+
+				$scope.message = "We love Scottsdale";
+
+				$scope.$watch(function() {
+					console.log("$digest loop executed...");
+				});
+
+				// $scope.$watch(function() {
+				// 	var x;
+				// 	var y = 100000000;
+				// 	while(y--) {
+				// 		x = y;
+				// 	}
+				// });
+
+				// angular.element("[name='message']").on("keyup", function(e) {
+				// 	console.log(e.target.value);
+				// })
+
+
+				$scope.$watchGroup(["person.firstName","person.lastName"], function(newValues, oldValues) {
+
+					console.log("New Value: " + newValues);
+					console.log("Old Value: " + oldValues);
+
+				});
+
+
+				$scope.$watch("person", function(ravi, raja) {
+
+					console.log("New Value: " + ravi);
+					console.log("Old Value: " + raja);
+
+				}, true);
+
+
+			});
+	</script>
+
+</body>
+
+</html>
