@@ -59,6 +59,8 @@ module.exports = function(grunt) {
 				{ url: "/libs", folder: "libs" },
 				{ url: "/tpl", folder: "tpl" },
 				{ url: "/js", folder: "js" },
+				{ url: "/jasmine", folder: "jasmine" },
+				{ url: "/js2", folder: "js2" },
 				{ url: "/css", folder: "css" }
 			]
 		},
