@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Angular.js Class</title>
+		<script src="/libs/jquery/dist/jquery.js"></script>
+		<script src="/libs/angular/angular.js"></script>
+		<script src="/js/app.templates.js"></script>
+	</head>
+
+	<body>
+
+		<div ng-app="MyApp">
+			<div ng-controller="MyCtrl">
+				<div ng-include="'test.tpl.html'"></div>
+			</div>
+		</div>
+
+		<script>
+
+			"use strict";
+
+			angular.module("MyApp", ['MyApp.Templates'])
+				.controller("MyCtrl", function($scope, $http) {
+					$scope.message = "Test Message!";
+
+					$http.get("http://localhost:8090/widgets").then(function(results) {
+						console.log("done");
+						console.log(results);
+					});
+
+					// $http.jsonp("http://localhost:8090/widgets?callback=JSON_CALLBACK").then(function(results) {
+					// 	console.log("done");
+					// 	console.log(results);
+					// });
+
+				});
+
+		</script>
+	</body>
+</html>

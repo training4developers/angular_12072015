@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="MyCtrl">
+			<div ch-repeat="5" bold-me>India, Panama, and Taiwan Rocks!</div>
+		</div>
+	</div>
+
+	<script>
+
+		"use strict";
+
+		angular.module("MyApp", [])
+			.directive("boldMe", function() {
+
+				return {
+					link: function(scope, element, attrs) {
+						element.css("font-weight", "bold");
+					}
+				};
+
+			})
+			.directive("chRepeat", function($compile) {
+
+				return {
+					terminal: true,
+					priority: 50,
+					compile: function(tElement) {
+
+						var tpl = tElement[0].outerHTML;
+						console.log(tpl);
+
+						var pri = this.priority;
+
+						return function(scope, element, attrs) {
+
+							element.empty();
+
+							var count = parseInt(attrs.chRepeat);
+							while(count--) {
+								var linkingFn = $compile(tpl, null, pri);
+								var domElements = linkingFn(scope);
+								element.append(domElements);
+							}
+
+						};
+
+					}
+				};
+
+			})
+			.controller("MyCtrl", function($scope, $timeout) {
+
+				$scope.colors = ["red","blue","green","yellow"];
+
+			});
+
+	</script>
+
+</body>
+
+</html>

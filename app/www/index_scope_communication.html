@@ -44,18 +44,27 @@
 
 
 			})
-			.controller("FirstCtrl", function($scope, EventsChannel) {
+			.controller("FirstCtrl", function($scope) {
 
-				$scope.$watch("firstName", function(newValue) {
-					EventsChannel.trigger("firstNameChange", newValue);
+				$scope.$watch("firstName", function() {
+					$scope.$emit("firstNameChange", $scope.firstName);
 				})
 
 			})
-			.controller("SecondCtrl", function($scope, EventsChannel) {
+			.controller("SecondCtrl", function($scope) {
 
-				EventsChannel.on("firstNameChange", function(firstName) {
-					$scope.firstName = firstName;
-				});
+				$scope.$on("firstNameChange2", function(e, data) {
+					$scope.firstName = data;
+				})
+			})
+			.run(function($rootScope) {
+
+				$rootScope.$on("firstNameChange", function(e, data) {
+
+					$rootScope.$broadcast("firstNameChange2", data);
+
+				})
+
 			});
 
 	</script>

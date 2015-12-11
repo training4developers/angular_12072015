@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="MyCtrl">
+		</div>
+	</div>
+
+	<script>
+
+		"use strict";
+
+		angular.module("MyApp", [])
+			.config(function($provide) {
+				console.log($provide);
+
+				$provide.decorator("$log", function($delegate) {
+
+					var originalLog = $delegate.log;
+
+					console.log($delegate);
+
+					$delegate.log = function(msg) {
+
+						// write code to call web sockets
+
+						originalLog("MyApp> " + msg);
+					};
+
+					return $delegate;
+
+				});
+
+			})
+			.controller("MyCtrl", function($scope, $log) {
+
+				$log.log("Rob loves to decorate Christmas trees!");
+			});
+
+	</script>
+
+</body>
+
+</html>

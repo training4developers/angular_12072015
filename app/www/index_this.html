@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<!--<script src="libs/angular/angular.js"></script> -->
+</head>
+
+<body>
+
+	<button>I love unicorns and rainbows!</button>
+
+	<script>
+
+		"use strict";
+
+		// document.getElementsByTagName("button")[0].addEventListener("click", function() {
+		//
+		// });
+
+		function ClickButton(domElement) {
+
+			this.numOfClicks = 0;
+
+			var that = this;
+
+			function outputNumberOfClicks() {
+				console.log(this.numOfClicks);
+			}
+
+			this.fnOutput = outputNumberOfClicks.bind(this);
+
+			function buttonClick() {
+				this.numOfClicks++;
+				this.fnOutput();
+			}
+
+			var fn2 = buttonClick.bind(this);
+
+			$(domElement).on("click", fn2);
+
+
+		}
+
+		var button = new ClickButton($("button"));
+
+		console.log(button.numOfClicks);
+
+		//
+		//
+		//
+		// function myFunc(a,b,c) {
+		// 	console.log(this);
+		// 	console.log(a,b,c);
+		// }
+		//
+		// myFunc(1,2,3);
+		// //
+		// window.myFunc(1,2,3);
+		//
+		// console.log(window.myFunc === myFunc);
+		//
+		// var o = {
+		// 	id: "2",
+		// 	myFunc: myFunc
+		// };
+		//
+		// o.myFunc(1,2,3);
+		//
+		// myFunc.call({ id: 3 }, 1, 2, 3);
+		//
+		// myFunc.apply({ id: 4 }, [1, 2, 3]);
+		//
+		// var fn = myFunc.bind({ id: 5});
+		//
+		// fn.call({ id: 7 });
+		//
+		// // fn(4,5,6);
+
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

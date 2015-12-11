@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+	<style>
+
+		input.ng-valid {
+			border-top: 3px red dotted;
+			border-bottom: 3px blue dotted;
+			border-left: 3px green dotted;
+			border-right: 3px yellow dotted;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="MyCtrl">
+
+			<input ng-model="ponyName" ch-pony-name>
+
+		</div>
+	</div>
+
+	<script>
+
+		angular.module("MyApp", [])
+			.directive("chPonyName", function() {
+
+				return {
+					require: "ngModel",
+					link: function(scope, element, attrs, ngModelCtrl) {
+
+
+						var ponyNames = ["rarity","rainbow dash","twilight sparkle",
+							"princess celestia","star swirl the bearded","vinay"];
+
+						function validate(value) {
+
+							if (ponyNames.indexOf(String(value).toLowerCase()) > -1) {
+								ngModelCtrl.$setValidity("ch-pony-name", true);
+								return value;
+							} else {
+								ngModelCtrl.$setValidity("ch-pony-name", false);
+								return;
+							}
+
+						}
+
+						ngModelCtrl.$formatters.push(validate);
+						ngModelCtrl.$parsers.push(validate);
+
+
+					}
+				}
+
+			})
+			.controller("MyCtrl", function($scope) {
+			});
+
+	</script>
+
+</body>
+
+</html>

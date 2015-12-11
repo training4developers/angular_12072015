@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="FirstCtrl">
+		</div>
+		<div ng-controller="SecondCtrl">
+		</div>
+	</div>
+
+	<script>
+
+		"use strict";
+
+		var instance1, instance2;
+
+		function HotelDataSvc() {
+
+			console.log("running hotel data 2 factory");
+
+			this.bookARoom = function() {
+				console.log("a room was booked");
+			};
+
+		}
+
+		angular.module("MyApp", [])
+			.factory("HotelData", function() {
+
+				return new HotelDataSvc();
+
+				// console.log("running hotel data factory");
+				//
+				// return {
+				// 	bookARoom: function() {
+				// 		console.log("a room was booked");
+				// 	}
+				// };
+
+			})
+			.service("HotelData2", HotelDataSvc)
+			.provider("HotelData3", function() {
+
+				var
+					roomsAvailable = 5;
+
+
+				// provider, service mama
+				return {
+
+					setRooms: function(numOfRooms) {
+						roomsAvailable = numOfRooms;
+					},
+
+					// factory function
+					$get: function() {
+
+						return {
+							bookARoom: function() {
+								if (roomsAvailable < 1) {
+									console.log("no rooms available...");
+									return;
+								}
+								roomsAvailable--;
+								console.log("welcome, here is a bottle of water...");
+							}
+						}
+
+
+						// service method
+						//return new HotelDataSvc();
+
+					}
+
+				};
+
+			})
+			.config(function(HotelData3Provider) {
+				HotelData3Provider.setRooms(2);
+			})
+			.controller("FirstCtrl", function($scope, HotelData3) {
+				instance1 = HotelData3;
+				HotelData3.bookARoom();
+				HotelData3.bookARoom();
+				HotelData3.bookARoom();
+			})
+			.controller("SecondCtrl", function($scope, HotelData3) {
+				instance2 = HotelData3;
+				HotelData3.bookARoom();
+				HotelData3.bookARoom();
+				HotelData3.bookARoom();
+			});
+
+			console.log(instance1 === instance2);
+
+	</script>
+
+</body>
+
+</html>
