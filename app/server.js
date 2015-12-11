@@ -44,6 +44,8 @@ module.exports = function(config) {
 	// 	}
 	// }));
 
+
+
 	config.webServer.staticFolders.forEach(function(staticFolder) {
 		webApp.use(staticFolder.url, express.static(
 			path.join(config.webServer.wwwFolder, staticFolder.folder), {
@@ -63,7 +65,22 @@ module.exports = function(config) {
 
 	});
 
-	http.createServer(webApp).listen(config.webServer.port, function() {
+	var
+		webServer = http.createServer(webApp),
+		WebSocketServer = require('ws').Server,
+		wss = new WebSocketServer({ server: webServer });
+
+	wss.on('connection', function(ws) {
+
+	  ws.on('message', function(message) {
+	    global.logger.info(message);
+	  });
+
+	  //ws.send('something');
+
+	});
+
+	webServer.listen(config.webServer.port, function() {
 		logger.info("web server started on port " + config.webServer.port);
 	});
 

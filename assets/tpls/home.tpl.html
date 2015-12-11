@@ -15,9 +15,11 @@
 			<td>{{widget.size}}</td>
 			<td>{{widget.quantity}}</td>
 			<td>
-				<button class="btn">Edit</button>
-				<button class="btn">View</button>
+				<button class="btn" ng-click="editWidget(widget._id)">Edit</button>
+				<button class="btn" ng-click="viewWidget(widget._id)">View</button>
 			</td>
 		</tr>
 	</tbody>
 </table>
+
+<button ng-click="createWidget()">Create Widget</button>

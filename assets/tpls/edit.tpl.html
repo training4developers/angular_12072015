@@ -1,0 +1,11 @@
+<div>
+	<div><label>Name: <input ng-model="widget.name"></label></div>
+	<div><label>Description: <input ng-model="widget.description"></label></div>
+	<div><label>Color: <input ng-model="widget.color"></label></div>
+	<div><label>Size: <input ng-model="widget.size"></label></div>
+	<div><label>Quantity: <input ng-model="widget.quantity"></label></div>
+</div>
+
+<button ng-click="saveWidget()">Save</button>
+<button ng-click="deleteWidget()" ng-if="widget._id">Delete</button>
+<button ng-click="returnToList()">Return to List</button>

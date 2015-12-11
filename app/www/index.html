@@ -5,70 +5,12 @@
 <head>
 	<title>Welcome to Angular.js!</title>
 	<link href="libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-	<style>
-		[ng-cloak], .ng-cloak {
-			display:none;
-		}
-	</style>
+	<link href="css/site.min.gz.css" rel="stylesheet">
 </head>
 
 <body>
-
-	<div ng-app="MyApp" ng-cloak>
-		<div ui-view></div>
-	</div>
-
-	<script src="libs/jquery/dist/jquery.js"></script>
-	<script src="libs/bootstrap/dist/js/bootstrap.js"></script>
-	<script src="libs/angular/angular.js"></script>
-	<script src="libs/angular-ui-router/release/angular-ui-router.js"></script>
-	<script src="js/app.templates.js"></script>
-	<script>
-
-		"use strict";
-
-		angular.module("MyApp", ["ui.router","MyApp.Templates"])
-			.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
-
-				$urlRouterProvider.otherwise("/");
-
-				$stateProvider
-					.state("home", {
-						url: "/",
-						templateUrl: "home.tpl.html",
-						controller: "HomeCtrl"
-					})
-					.state("edit", {
-						url: "/widget/:widgetId/edit",
-						templateUrl: "edit.tpl.html",
-						controller: function() {
-
-						}
-					})
-					.state("view", {
-						url: "/widget/:widgetId",
-						templateUrl: "view.tpl.html",
-						controller: function() {
-
-						}
-					});
-
-
-			})
-			.controller("HomeCtrl", function($scope) {
-
-				$scope.widgets = [
-					{ id: 1, name: "Test Widget 1", description: "A test widget",
-						color:"red", size:"large", quantity: 10 },
-					{ id: 2, name: "Test Widget 2", description: "A test widget",
-						color:"blue", size:"small", quantity: 20 }
-				];
-
-
-			});
-
-	</script>
-
+	<main ng-cloak><div ui-view class="container-fluid"></div></main>
+	<script src="js/site.js"></script>
 </body>
 
 </html>

@@ -32,13 +32,16 @@ module.exports = function(grunt) {
 
 	jsFiles[path.join(jsFolder, "site.js")]	= [
 			path.join(libsFolder, "jquery", "dist", "jquery.js"),
+			path.join(libsFolder, "bootstrap", "dist", "js", "bootstrap.js"),
 			path.join(libsFolder, "angular", "angular.js"),
-			path.join(jsFolder, "app.js"),
-			path.join(jsFolder, "app.constants.js"),
+			path.join(libsFolder, "angular-ui-router", "release", "angular-ui-router.js"),
 			path.join(jsFolder, "app.templates.js"),
-			path.join(jsFolder, "checkin", "controllers", "*.js"),
-			path.join(jsFolder, "reservations", "controllers", "*.js"),
-			path.join(jsFolder, "app_init.js")
+			path.join(jsFolder, "app.js"),
+			//path.join(jsFolder, "app.constants.js"),
+			path.join(jsFolder, "services", "*.js"),
+			path.join(jsFolder, "configs", "*.js"),
+			path.join(jsFolder, "controllers", "*.js"),
+			path.join(jsFolder, "start.js")
 	];
 
 	jsMinifyFiles[path.join(jsFolder, "site.min.js")]	=
@@ -65,7 +68,7 @@ module.exports = function(grunt) {
     mongoServer: {
       host: "localhost",
       port: 27017,
-      dbName: "AAA"
+      dbName: "t4dclass"
     },
     logger: {
       transports: {
