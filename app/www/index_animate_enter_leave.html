@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Welcome to Angular.js!</title>
+	<script src="libs/jquery/dist/jquery.js"></script>
+	<script src="libs/angular/angular.js"></script>
+	<script src="libs/angular-animate/angular-animate.js"></script>
+	<style>
+
+		.fade.ng-enter {
+		  transition:0.5s linear all;
+		  opacity:0;
+		}
+
+		.fade.ng-enter.ng-enter-active {
+		  opacity:1;
+		}
+
+		/*.fade.ng-leave {
+		  transition:0.5s linear all;
+		  opacity:1;
+		}
+		.fade.ng-leave.ng-leave-active {
+		  opacity:0;
+		}*/
+
+		.fade.ng-leave {
+		  animation: fade-animation 0.5s linear;
+		}
+
+		@keyframes fade-animation {
+		  from { opacity:1; }
+		  to { opacity:0; }
+		}
+
+	</style>
+</head>
+
+<body>
+
+	<div ng-app="MyApp">
+		<div ng-controller="MyCtrl">
+			<input ng-model="showMe" type="checkbox"> Show Me!
+			<div ng-if="showMe" class="fade">
+				Hello!
+			</div>
+		</div>
+	</div>
+
+	<script>
+
+		"use strict";
+
+		angular.module("MyApp", ["ngAnimate"])
+			.controller("MyCtrl", function($scope) {
+
+			});
+
+	</script>
+
+</body>
+
+</html>
