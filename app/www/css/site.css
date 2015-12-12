@@ -1,2 +1,9 @@
 [ng-cloak], .ng-cloak {
   display: none; }
+
+.t.ng-enter {
+  transition: 0.5s linear all;
+  opacity: 0; }
+
+.t.ng-enter.ng-enter-active {
+  opacity: 1; }

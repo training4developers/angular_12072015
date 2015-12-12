@@ -34,6 +34,7 @@ module.exports = function(grunt) {
 			path.join(libsFolder, "jquery", "dist", "jquery.js"),
 			path.join(libsFolder, "bootstrap", "dist", "js", "bootstrap.js"),
 			path.join(libsFolder, "angular", "angular.js"),
+			path.join(libsFolder, "angular-animate", "angular-animate.js"),
 			path.join(libsFolder, "angular-ui-router", "release", "angular-ui-router.js"),
 			path.join(jsFolder, "app.templates.js"),
 			path.join(jsFolder, "app.js"),

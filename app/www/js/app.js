@@ -8,7 +8,7 @@
 	angular.module("MyApp.Controllers", ["MyApp.Constants", "MyApp.Services"]);
 
 	angular.module("MyApp", [
-		"ui.router", "MyApp.Configs", "MyApp.Controllers", "MyApp.Templates"
+		"ui.router", "ngAnimate", "MyApp.Configs", "MyApp.Controllers", "MyApp.Templates"
 	]);
 
 })(angular);
